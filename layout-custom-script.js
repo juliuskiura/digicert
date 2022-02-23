@@ -1,3 +1,5 @@
+
+
 const targetParent = document.querySelector('.portal-body-row');
 const headerLinks =  Array.from(targetParent.getElementsByClassName('portal-single-publication'));
 
@@ -31,20 +33,27 @@ headerLinks.forEach(element => {
 });
 
 
-const childArray = Array.from(document.getElementsByClassName('child-page'))
+const featuredSubtopicsArray = Array.from(document.getElementsByClassName('featured-subtopics'))
 
-childArray.forEach(element => {
+featuredSubtopicsArray.forEach(childArray2 => {
+    const childArray = Array.from(document.querySelectorAll('li'))
+    
+
+
+
+childArray.forEach(element => {   
      
         const aTag = element.querySelector('a') 
         
         const linktext = aTag.innerHTML.toLowerCase().split(' ').join('-')
-        const childPageContentId = ` #${linktext}-column`;      
+        const childPageContentId = ` .${linktext}-column`; 
+        
         const childPageLink = aTag.href;
         const pathArray = childPageLink.split('/')
         const pathDir = pathArray[pathArray.length - 2]
         const pathHash = `/${pathDir}/`
-        console.log(pathDir)
-
+        
+       
         const disabled = aTag.href ="#";
 
         element.addEventListener('click', ()=>{
@@ -57,8 +66,7 @@ childArray.forEach(element => {
            });
         }
             const externalContainerDiv = $('<div>').addClass('childrenContent');      
-            // const injectableContent = $(externalContainerDiv).load(childPageLink + childPageContentId);      
-            // $(element).append(injectableContent); 
+            
             
             
 
@@ -68,6 +76,7 @@ childArray.forEach(element => {
             $.get(childPageLink, function( data ) {
                 const htmlc = stringToHTML(data)
                constContentId = htmlc.querySelector(childPageContentId)
+            
                const childrenLinks = Array.from(constContentId.querySelectorAll('a'))
                childrenLinks.forEach(childAnchor => {
                 var link = childAnchor.href
@@ -94,6 +103,8 @@ childArray.forEach(element => {
      
 });
 
+});
+
 
 
 var stringToHTML = function (str) {
@@ -110,6 +121,7 @@ function linkHash(childPageLink) {
     const pathDir = pathArray[pathArray.length - 2]   
     return `/${pathDir}/`
 }
+
 
 
 
